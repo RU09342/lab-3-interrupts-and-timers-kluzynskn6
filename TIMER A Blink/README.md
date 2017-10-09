@@ -17,20 +17,20 @@ The timer module available on the MSP430 has various control register that can b
 Code for one MSP430 device can not be directly used a different MSP430. By using #ifdef statements placed in a header file, the precompiler can determined which board is being used, and translate specific marcos from board to board. Every file here execpt for the G2553 uses these macros. After the header file was complete, translating code from board to board only rarely took more than a few minutes.  Not everything can be translated; there are very specific scenarios and these macos do not cover every possible combination.
 
 ### Macro list
--Timer Macros
-	-TA0SET(x) Configures timer to up mode, using SMCLK/8, and sets the frequency of interrupts to the input value x. This is available for TA0, TA1, TB0, and TB1.
-	-TA0STOP   Sets the timer input to 0, effectively stopping the timer. This is available for TA0, TA1, TB0, and TB1.
-	-TA0START  Reconfigures the timer to up mode and SMCLK/8. This is available for TA0, TA1, TB0, and TB1.
--LED Macros
-	-LED1INIT  Initializes the port with the right LED to an I/O as an output. Also available for LED2
-	-LED1ON    Sets the output bit active for the corresponding port. Also available for LED2
-	-LED1OFF   Sets the output bit off for the corresponding port. Also available for LED2
-	-LED1SWITCH Toggles the output of the corresponding port. Also available for LED2
+- Timer Macros
+  - TA0SET(x) Configures timer to up mode, using SMCLK/8, and sets the frequency of interrupts to the input value x. This is available for TA0, TA1, TB0, and TB1.
+  - TA0STOP   Sets the timer input to 0, effectively stopping the timer. This is available for TA0, TA1, TB0, and TB1.
+  - TA0START  Reconfigures the timer to up mode and SMCLK/8. This is available for TA0, TA1, TB0, and TB1.
+- LED Macros
+  - LED1INIT  Initializes the port with the right LED to an I/O as an output. Also available for LED2
+  - LED1ON    Sets the output bit active for the corresponding port. Also available for LED2
+  - LED1OFF   Sets the output bit off for the corresponding port. Also available for LED2
+  - LED1SWITCH Toggles the output of the corresponding port. Also available for LED2
 -Button Macros
-	-BTN1INIT Initializes the port with the right LED to an I/O as an input with a pull-up resistor. Also available for button 2 if there is one.
-	-BTN1UP Checks to see if the button is not pressed. Can be inverted by !BTN1UP. Also available for button 2 if there is one.
-	-BTN1CLR Clears the interrupt flag for that port. Also available for button 2 if there is one.
-	-BTN1SWAP Swaps the interrupt edge on that port. Also available for button 2 if there is one.
+  - BTN1INIT Initializes the port with the right LED to an I/O as an input with a pull-up resistor. Also available for button 2 if there is one.
+  - BTN1UP Checks to see if the button is not pressed. Can be inverted by !BTN1UP. Also available for button 2 if there is one.
+  - BTN1CLR Clears the interrupt flag for that port. Also available for button 2 if there is one.
+  - BTN1SWAP Swaps the interrupt edge on that port. Also available for button 2 if there is one.
 
 
 
