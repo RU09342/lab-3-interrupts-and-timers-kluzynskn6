@@ -26,7 +26,7 @@ Code for one MSP430 device can not be directly used a different MSP430. By using
   - LED1ON    Sets the output bit active for the corresponding port. Also available for LED2
   - LED1OFF   Sets the output bit off for the corresponding port. Also available for LED2
   - LED1SWITCH Toggles the output of the corresponding port. Also available for LED2
--Button Macros
+- Button Macros
   - BTN1INIT Initializes the port with the right LED to an I/O as an input with a pull-up resistor. Also available for button 2 if there is one.
   - BTN1UP Checks to see if the button is not pressed. Can be inverted by !BTN1UP. Also available for button 2 if there is one.
   - BTN1CLR Clears the interrupt flag for that port. Also available for button 2 if there is one.
