@@ -1,15 +1,38 @@
 # TIMER A Blink
-The TIMER peripherals can be used in many situations thanks to it flexibility in features. For this lab, you will be only scratching the surface as to what this peripheral can do. 
 
-## Up, Down, Continuous 
-There are a few different ways that the timer module can count. For starters, one of the easiest to initialize is Continuous counting where in the TIMER module will alert you when its own counting register overflows. Up mode allows you to utilize a Capture/Compare register to have the counter stop at a particular count and then start back over again. You can also set the TIMER to Up/Down mode where upon hitting a counter or the overflow, instead of setting the counter back to zero, it will count back down to zero. 
+### Nick Kluzynski
 
-## Task
-Using the TIMER module instead of a software loop, control the speed of two LEDS blinking on your development boards. Experiment with the different counting modes available as well as the effect of the pre-dividers. Why would you ever want to use a pre-divider? What about the Capture and Compare registers? Your code should include a function (if you want, place it in its own .c and .h files) which can convert a desired Hz into the proper values required to operate the TIMER modules.
+One of the most common peripherals on the MSP430 is the timer. Using the timer, the CPU can be shut off and run with very little power consumption. Whenever the timer throws an interrupt flag, the CPU turns on, executes the code inside the Interrupt, and reenters sleep. By using the timer, precision timing is much easrier to acheive.
 
-### Extra Work
-#### Thinking with HALs
-So maybe up to this point you have noticed that your software is looking pretty damn similar to each other for each one of these boards. What if there was a way to abstract away all of the particulars for a processor and use the same functional C code for each board? Just for this simple problem, why don't you try and build a "config.h" file which using IFDEF statements can check to see what processor is on board and initialize particular registers based on that.
+## Usage
+This project can be used to execute code at precise timing intervals. In the current code, 2 LEDs are blinking at 2 different rates utilizing 2 different timers.
 
-#### Low Power Timers
-Since you should have already done a little with interrupts, why not build this system up using interrupts and when the processor is basically doing nothing other than burning clock cycles, drop it into a Low Power mode. Do a little research and figure out what some of these low power modes actually do to the processor, then try and use them in your code. If you really want to put your code to the test, using the MSP430FR5994 and the built in super cap, try and get your code to run for the longest amount of time only using that capacitor as your power source.
+
+
+## Timer Module
+
+The timer module available on the MSP430 has various control register that can be used to modify the function of the timer module. The main control register can be used to set the count speed by utilizing different clocks as well as pre-dividers. The main register also sets the count mode into up, up/down, or continuous; each has their own benifits and purposes. From there, each possible interrupt has its own register that controls wether or not it is active, what output mode it uses, and has yet another register to tell how many ticks it waits before interrupting.
+
+##Hardware Abstraction Layers using Macros
+Code for one MSP430 device can not be directly used a different MSP430. By using #ifdef statements placed in a header file, the precompiler can determined which board is being used, and translate specific marcos from board to board. Every file here execpt for the G2553 uses these macros. After the header file was complete, translating code from board to board only rarely took more than a few minutes.  Not everything can be translated; there are very specific scenarios and these macos do not cover every possible combination.
+
+### Macro list
+-Timer Macros
+	-TA0SET(x) Configures timer to up mode, using SMCLK/8, and sets the frequency of interrupts to the input value x. This is available for TA0, TA1, TB0, and TB1.
+	-TA0STOP   Sets the timer input to 0, effectively stopping the timer. This is available for TA0, TA1, TB0, and TB1.
+	-TA0START  Reconfigures the timer to up mode and SMCLK/8. This is available for TA0, TA1, TB0, and TB1.
+-LED Macros
+	-LED1INIT  Initializes the port with the right LED to an I/O as an output. Also available for LED2
+	-LED1ON    Sets the output bit active for the corresponding port. Also available for LED2
+	-LED1OFF   Sets the output bit off for the corresponding port. Also available for LED2
+	-LED1SWITCH Toggles the output of the corresponding port. Also available for LED2
+-Button Macros
+	-BTN1INIT Initializes the port with the right LED to an I/O as an input with a pull-up resistor. Also available for button 2 if there is one.
+	-BTN1UP Checks to see if the button is not pressed. Can be inverted by !BTN1UP. Also available for button 2 if there is one.
+	-BTN1CLR Clears the interrupt flag for that port. Also available for button 2 if there is one.
+	-BTN1SWAP Swaps the interrupt edge on that port. Also available for button 2 if there is one.
+
+
+
+
+
